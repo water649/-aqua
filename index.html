@@ -1,4 +1,4 @@
-><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -834,6 +834,8 @@ button.feed-follow-plus{padding:0;cursor:pointer}
 <div id="toast"></div>
 
 <script>
+(async function(){
+
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,8),rnd=n=>Math.floor(Math.random()*n);
@@ -860,7 +862,12 @@ const DEF=()=>({cfg:{base:'https://api.openai.com/v1',key:'',model:'gpt-4o-mini'
   personas:[{id:'p1',name:'默认',handle:'',bio:'',prompt:'你是一个温柔、简洁的聊天伙伴，用自然的口语回复。',greet:'',avatar:''}],
   worlds:[],apiPresets:[],chats:{},posts:[],memo:'',memoImage:'',memoImageTitle:'备忘录图片',desktop:{wallpaper:'',icons:{},widgets:[],order:{}},last:'',theme:'light',stickers:[],cc:{},themes:[],globalPrompt:'',userProfiles:[],activeUserProfile:'',diaries:[],postDecorations:[],
   deco:{name:'小手机',handle:'xiaoshouji',avatar:'',text:'点这里修改文案，换成你喜欢的一句话。',meta:'20:31 · 2026/10/10 · 4.6万 次查看',rp:'128',rt:'642',likes:'2460',bm:'583',badge:true}});
-let S;try{S=JSON.parse(localStorage.getItem('xsj')||'null')}catch(e){}
+// IndexedDB-backed persistence: larger than localStorage and supports restoring large backups.
+const __STORE_DB='xiaoshouji-v62-store';
+function __openStoreDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(__STORE_DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('state'))req.result.createObjectStore('state')};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('无法打开本地数据库'))})}
+async function __readStoredState(){try{const db=await __openStoreDB();const val=await new Promise((resolve,reject)=>{const tx=db.transaction('state','readonly');const req=tx.objectStore('state').get('xsj');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)});db.close();if(val){try{return typeof val==='string'?JSON.parse(val):val}catch(e){console.warn('IndexedDB 中的状态无法解析',e)}}}catch(e){console.warn('读取 IndexedDB 失败，将尝试旧存储',e)}try{return JSON.parse(localStorage.getItem('xsj')||'null')}catch(e){return null}}
+async function __writeStoredState(serialized){const db=await __openStoreDB();await new Promise((resolve,reject)=>{const tx=db.transaction('state','readwrite');tx.objectStore('state').put(serialized,'xsj');tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('数据库写入失败'));tx.onabort=()=>reject(tx.error||new Error('数据库写入中断'))});db.close();}
+let S=await __readStoredState();
 S=Object.assign(DEF(),S||{});S.stickerGroups=S.stickerGroups||['默认'];S.stickers=(S.stickers||[]).map(x=>({...x,group:x.group||'默认'}));S.apiPresets=S.apiPresets||[];S.secondaryPresets=S.secondaryPresets||[];S.userProfiles=S.userProfiles||[];S.diaries=S.diaries||[];S.postDecorations=S.postDecorations||[];if(!S.userProfiles.length){S.userProfiles=[Object.assign({id:'u1'},S.me)];S.activeUserProfile='u1'};S.activeUserProfile=S.activeUserProfile||S.userProfiles[0].id;S.me=Object.assign({},S.userProfiles.find(x=>x.id===S.activeUserProfile)||S.me);
 const MEMK=['traditionalMemory','memoryEntries','vectorMemories','lastAutoSummaryCount'];
 S.chatsByUser=S.chatsByUser||{};S.memByUser=S.memByUser||{};S.cc=S.cc||{};
@@ -869,7 +876,13 @@ S.chatsByUser=S.chatsByUser||{};S.memByUser=S.memByUser||{};S.cc=S.cc||{};
   if(S.activeUserProfile!==first){const pack={};Object.keys(S.cc).forEach(pid=>{const m={};MEMK.forEach(k=>{if(S.cc[pid][k]!==undefined){m[k]=S.cc[pid][k];delete S.cc[pid][k]}});pack[pid]=m});S.memByUser[first]=pack}}
  (S.posts||[]).forEach(o=>{if(o.pid==='me'&&!o.uid)o.uid=first});
  S.chats=S.chatsByUser[S.activeUserProfile]||(S.chatsByUser[S.activeUserProfile]={})}S.cfg=Object.assign(DEF().cfg,S.cfg);S.me=Object.assign(DEF().me,S.me);S.deco=Object.assign(DEF().deco,S.deco);S.desktop=Object.assign({wallpaper:'',icons:{},widgets:[],order:{}},S.desktop||{});S.desktop.icons=S.desktop.icons||{};S.desktop.widgets=S.desktop.widgets||[];S.desktop.order=S.desktop.order||{};
-const save=()=>{try{localStorage.setItem('xsj',JSON.stringify(S,function(k,v){return k==='chats'&&this===S?undefined:v}))}catch(e){alert('存储空间已满，请导出备份并清理')}};
+let __saveQueue=Promise.resolve();
+const save=()=>{let serialized;try{serialized=JSON.stringify(S,function(k,v){return k==='chats'&&this===S?undefined:v})}catch(e){console.error('序列化数据失败',e);toast('保存失败：数据无法序列化');return Promise.resolve(false)}
+ __saveQueue=__saveQueue.then(async()=>{await __writeStoredState(serialized); // Keep a small compatibility copy only when it fits safely.
+  try{if(serialized.length<1800000)localStorage.setItem('xsj',serialized);else localStorage.removeItem('xsj')}catch(e){try{localStorage.removeItem('xsj')}catch(_){}}
+  return true
+ }).catch(e=>{console.error('保存数据失败',e);toast('本地保存失败：'+(e&&e.message||'浏览器存储不可用')+'。请勿关闭页面，先导出备份。');return false});return __saveQueue};
+save();
 const P=id=>S.personas.find(x=>x.id===id);
 const postsOf=id=>S.posts.filter(o=>o.pid===id&&(id!=='me'||o.uid===S.activeUserProfile));
 function switchUser(id){
@@ -1723,7 +1736,7 @@ $('#test').onclick=async()=>{const o=$('#tres');o.textContent='测试中…';
 function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
 $('#exp').onclick=()=>{const data=JSON.stringify(S);downloadBlob(new Blob([data],{type:'application/json'}),'xiaoshouji-backup.json')};
 $('#expzip').onclick=()=>{const data=new TextEncoder().encode(JSON.stringify(S));const name=new TextEncoder().encode('xiaoshouji-backup.json');const crcTable=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();let crc=0xffffffff;for(const b of data)crc=crcTable[(crc^b)&255]^(crc>>>8);crc=(crc^0xffffffff)>>>0;const local=new Uint8Array(30+name.length+data.length),v=new DataView(local.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint32(14,crc,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);local.set(name,30);local.set(data,30+name.length);const central=new Uint8Array(46+name.length),cv=new DataView(central.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);central.set(name,46);const end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,1,true);ev.setUint16(10,1,true);ev.setUint32(12,central.length,true);ev.setUint32(16,local.length,true);downloadBlob(new Blob([local,central,end],{type:'application/zip'}),'xiaoshouji-backup.zip')};
-$('#imp').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.json,.zip,application/json,application/zip';i.onchange=async()=>{const f=i.files&&i.files[0];if(!f)return;try{let obj;if(/\.zip$/i.test(f.name)){const ab=await f.arrayBuffer();const json=await readJsonFromZip(ab);obj=JSON.parse(json)}else obj=JSON.parse(await f.text());if(!obj||typeof obj!=='object')throw new Error('文件内容不是有效备份');S=Object.assign(DEF(),obj);S.cfg=Object.assign(DEF().cfg,S.cfg||{});save();location.reload()}catch(e){alert('导入失败：'+e.message)}};i.click()};
+$('#imp').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.json,.zip,application/json,application/zip';i.onchange=async()=>{const f=i.files&&i.files[0];if(!f)return;try{let obj;if(/\.zip$/i.test(f.name)){const ab=await f.arrayBuffer();const json=await readJsonFromZip(ab);obj=JSON.parse(json)}else obj=JSON.parse(await f.text());if(!obj||typeof obj!=='object')throw new Error('文件内容不是有效备份');S=Object.assign(DEF(),obj);S.cfg=Object.assign(DEF().cfg,S.cfg||{});const saved=await save();if(!saved)throw new Error('备份已读取，但写入本地数据库失败；请勿清除旧数据');location.reload()}catch(e){alert('导入失败：'+e.message)}};i.click()};
 async function readJsonFromZip(ab){const v=new DataView(ab);let off=0;while(off+30<ab.byteLength){if(v.getUint32(off,true)!==0x04034b50)break;const method=v.getUint16(off+8,true),cs=v.getUint32(off+18,true),nl=v.getUint16(off+26,true),el=v.getUint16(off+28,true),name=new TextDecoder().decode(new Uint8Array(ab,off+30,nl)),start=off+30+nl+el;if(name.toLowerCase().endsWith('.json')){const bytes=new Uint8Array(ab,start,cs);if(method===0)return new TextDecoder().decode(bytes);if(method===8&&'DecompressionStream'in window)return await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();throw new Error('此 ZIP 压缩方式不受支持')}off=start+cs}throw new Error('ZIP 内没有 JSON 备份文件')}
 
 
@@ -1834,6 +1847,8 @@ function bindUserProfile(root,refresh){
    const n=act();S.me={name:n.name||'',handle:n.handle||'',bio:n.bio||'',avatar:n.avatar||''};saveNow();refresh();toast('已删除')}}
  if(upOpen){upOpen=0;box.style.display='block';fill()}
 }
+
+})();
 </script>
 </body>
 </html>
