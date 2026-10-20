@@ -595,20 +595,20 @@ button.mu-av{border:0;cursor:pointer}
 [data-theme=dark] .nt.nt-det{background:#000}
 .nt-det .nt-c{background:#f2f2f7}
 [data-theme=dark] .nt-det .nt-c{background:#1c1c1e}
-.voice-msg.voice-msg{padding:3px 11px;gap:8px}
-.voice-msg.voice-msg .voice-play{min-height:22px;gap:8px}
-.voice-msg.voice-msg .voice-arrow{width:22px;height:22px}
+.voice-msg.voice-msg{padding:5px 12px;gap:9px}
+.voice-msg.voice-msg .voice-play{min-height:26px;gap:9px}
+.voice-msg.voice-msg .voice-arrow{width:24px;height:24px}
 .voice-msg.voice-msg .voice-arrow:before{border-top-width:4px;border-bottom-width:4px;border-left-width:6px}
-.voice-msg.voice-msg .voice-wave{height:18px;min-width:44px}
-.voice-msg.voice-msg .voice-wave i:nth-child(1),.voice-msg.voice-msg .voice-wave i:nth-child(9){height:5px}
-.voice-msg.voice-msg .voice-wave i:nth-child(2),.voice-msg.voice-msg .voice-wave i:nth-child(8){height:9px}
-.voice-msg.voice-msg .voice-wave i:nth-child(3),.voice-msg.voice-msg .voice-wave i:nth-child(7){height:13px}
-.voice-msg.voice-msg .voice-wave i:nth-child(4),.voice-msg.voice-msg .voice-wave i:nth-child(6){height:8px}
-.voice-msg.voice-msg .voice-wave i:nth-child(5){height:17px}
+.voice-msg.voice-msg .voice-wave{height:22px;min-width:48px}
+.voice-msg.voice-msg .voice-wave i:nth-child(1),.voice-msg.voice-msg .voice-wave i:nth-child(9){height:6px}
+.voice-msg.voice-msg .voice-wave i:nth-child(2),.voice-msg.voice-msg .voice-wave i:nth-child(8){height:11px}
+.voice-msg.voice-msg .voice-wave i:nth-child(3),.voice-msg.voice-msg .voice-wave i:nth-child(7){height:15px}
+.voice-msg.voice-msg .voice-wave i:nth-child(4),.voice-msg.voice-msg .voice-wave i:nth-child(6){height:9px}
+.voice-msg.voice-msg .voice-wave i:nth-child(5){height:19px}
 .voice-msg.voice-msg.show-text{padding:6px 11px}
 .voice-msg.voice-msg.show-text .voice-play{margin-bottom:5px}
 .m:has(>.voice-msg){padding:4px 8px}
-.up-bio-wrap{background:var(--p);border-radius:16px;padding:12px 14px;margin:12px 0 10px}
+.up-bio-wrap{background:transparent;border-radius:0;padding:0;margin:12px 0 10px}
 .up-cap{font-size:11px;letter-spacing:.12em;color:var(--sub);margin-bottom:6px}
 .up-bio{font-size:14px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;margin:0!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .up-bio-wrap.open .up-bio{display:block;-webkit-line-clamp:unset}
@@ -973,11 +973,11 @@ function profHTML(id){
   const bg='';
   const editor=isMe?`<div id="user-edit-box" class="up-edit" style="display:none">
     <div class="up-row"><div class="up-f"><label style="margin-top:0">名字</label><input id="up-name" placeholder="用户名字"></div><div class="up-f"><label style="margin-top:0">账号</label><input id="up-handle" placeholder="handle"></div></div>
-    <label>简介 · 用户人设（会告知 AI 角色）</label><textarea id="up-bio" rows="5" placeholder="写下你的身份、性格、和角色的关系…"></textarea><div class="up-hint" id="up-count"></div>
+    <label>简介</label><textarea id="up-bio" rows="5" placeholder="写下你的身份、性格、和角色的关系…"></textarea><div class="up-hint" id="up-count"></div>
     <div class="up-actions"><button class="btn" id="import-user-profile" type="button">导入</button><button class="btn del" id="delete-user-profile" type="button">删除</button><button class="btn fill" id="save-user-profile" type="button">完成</button></div>
   </div>`:'';
   return `<div class="bn" id="change-user-bg" ${bg}></div><div class="pr"><div class="av big" id="change-user-avatar">${av(u)}</div></div>
-  <div class="pi"><div class="profile-name-row"><b class="profile-name">${esc(u.name)}${BADGE}</b>${isMe?'<button class="pill" id="edit-user-profile" type="button">编辑</button>':`<button class="pill" data-chat="${id}">发消息</button>`}</div><small>@${esc(u.handle)}</small>${(u.bio||isMe)?`<div class="up-bio-wrap"><div class="up-cap">${isMe?'用户人设 · 会告知 AI 角色':'简介'}</div><p class="up-bio" id="up-bio-view">${esc(u.bio||'还没写用户人设，点「编辑」填写')}</p><button class="up-more" type="button" data-bio-toggle>展开</button></div>`:''}${isMe?`<div class="up-chips">${S.userProfiles.map(x=>`<button type="button" class="up-chip${x.id===S.activeUserProfile?' on':''}" data-up-switch="${esc(x.id)}">${esc(x.name||'未命名')}</button>`).join('')}<button type="button" class="up-chip add" id="add-user-profile">＋ 新增</button></div>`:''}<small>${ps.length} 帖子</small></div>
+  <div class="pi"><div class="profile-name-row"><b class="profile-name">${esc(u.name)}${BADGE}</b>${isMe?'<button class="pill" id="edit-user-profile" type="button">编辑</button>':`<button class="pill" data-chat="${id}">发消息</button>`}</div><small>@${esc(u.handle)}</small>${(u.bio||isMe)?`<div class="up-bio-wrap"><div class="up-cap">简介</div><p class="up-bio" id="up-bio-view">${esc(u.bio||'还没写用户人设，点「编辑」填写')}</p><button class="up-more" type="button" data-bio-toggle>展开</button></div>`:''}${isMe?`<div class="up-chips">${S.userProfiles.map(x=>`<button type="button" class="up-chip${x.id===S.activeUserProfile?' on':''}" data-up-switch="${esc(x.id)}">${esc(x.name||'未命名')}</button>`).join('')}<button type="button" class="up-chip add" id="add-user-profile">＋ 新增</button></div>`:''}<small>${ps.length} 帖子</small></div>
   ${editor}<div class="profile-tabs">${[['posts','串文'],['replies','回复'],['media','影音内容'],['retweets','转发'],['stickers','表情包']].map(([k,t])=>`<button type="button" data-profile-tab="${k}" class="${profileTab===k?'on':''}">${t}</button>`).join('')}</div><div id="profile-tab-content">${profileTabContent(id,ps)}</div>`;
 }
 
@@ -1248,12 +1248,8 @@ document.addEventListener('click',e=>{
   else if(q('#smile')){$('#sp').classList.toggle('on');rSP()}
 });
 
-// Delegated fallbacks keep profile controls clickable after the profile content is re-rendered.
-document.addEventListener('click',e=>{
-  const edit=e.target.closest('#edit-user-profile');
-  if(edit){e.preventDefault();e.stopPropagation();const box=document.querySelector('#user-edit-box');if(box){const opening=getComputedStyle(box).display==='none';box.style.display=opening?'block':'none';if(opening){const x=S.userProfiles.find(v=>v.id===S.activeUserProfile)||S.userProfiles[0];if(x){$('#up-name').value=x.name||'';$('#up-handle').value=x.handle||'';$('#up-bio').value=x.bio||''}}}return}
-  const saveBtn=e.target.closest('#save-user-profile');if(saveBtn){e.preventDefault();const x=S.userProfiles.find(v=>v.id===S.activeUserProfile)||S.userProfiles[0];if(!x)return;Object.assign(x,{name:$('#up-name').value,handle:$('#up-handle').value,bio:$('#up-bio').value});S.me={name:x.name,handle:x.handle,bio:x.bio,avatar:x.avatar||''};save();rProf();const box=document.querySelector('#user-edit-box');if(box)box.style.display='block';toast('用户人设已保存');return}
-},true);
+/* Profile editing uses the controls bound by bindUserProfile/rProf only.
+   Avoid capture-phase duplicate handlers, which toggled the editor open and then closed it. */
 
 /* home */
 function decoHTML(){const d=S.deco;
@@ -1466,7 +1462,7 @@ function bub(m,i,first,last){
   r.className='r '+(me?'me':'ai')+(first?' first':'');if(i>=0)r.dataset.i=i;
   r.innerHTML=`<div class="av" ${!me&&i>=0?'data-thought-i="'+i+'" title="查看角色内心想法"':''}>${av(u)}</div><div class="col">${first&&!me?`<div class="nm">${esc(u.name)}</div>`:''}<div class="bw"><div class="m"></div>${last&&m.t?`<span class="tm">${hm(m.t)}</span>`:''}</div></div>`;
   const el=r.querySelector('.m'),sk=m.stk&&S.stickers.find(x=>x.id===m.stk);
-  if(m.image){el.classList.add('image-msg');el.innerHTML=`${m.content?`<div>${esc(m.content)}</div>`:''}<img src="${m.image}" alt="聊天图片" style="display:block;max-width:min(240px,62vw);max-height:320px;object-fit:contain;border-radius:12px;margin-top:${m.content?'6px':'0'}">`}else if(sk){el.classList.add('stk');el.innerHTML=`<img src="${sk.src}" alt="">`}else if(m.audio){el.classList.add('voice-msg');el.innerHTML=`<button type="button" class="voice-play" data-play-audio="${i}" aria-label="展开或收起语音文字"><span class="voice-arrow" aria-hidden="true"></span><span class="voice-wave" aria-hidden="true">${'<i></i>'.repeat(9)}</span></button><span class="voice-transcript">${esc(m.content||'语音消息')}</span>`}else {el.textContent=m.content}$('#msgs').appendChild(r);$('#msgs').scrollTop=1e9;return el;
+  if(m.image){el.classList.add('image-msg');el.innerHTML=`${m.content?`<div>${esc(m.content)}</div>`:''}<img src="${m.image}" alt="聊天图片" style="display:block;max-width:min(240px,62vw);max-height:320px;object-fit:contain;border-radius:12px;margin-top:${m.content?'6px':'0'}">`}else if(sk){el.classList.add('stk');el.innerHTML=`<img src="${sk.src}" alt="">`}else if(m.audio){el.classList.add('voice-msg');el.innerHTML=`<button type="button" class="voice-play" data-play-audio="${i}" aria-label="展开或收起语音文字"><span class="voice-arrow" aria-hidden="true"></span><span class="voice-wave" aria-hidden="true">${'<i></i>'.repeat(9)}</span></button><span class="voice-transcript">${esc(m.content||'语音消息')}</span>`;el.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();el.classList.toggle('show-text')})}else {el.textContent=m.content}$('#msgs').appendChild(r);$('#msgs').scrollTop=1e9;return el;
 }
 function applyChatFont(){const box=$('#msgs');if(box)box.style.setProperty('--chat-font-size',(Number(CC(cur).fontSize)||14)+'px')}
 let multiSelectMode=false;let selectedMsgIndices=new Set();
@@ -1506,7 +1502,7 @@ $('#msgs').onclick=e=>{
  const on=r.classList.contains('sel');$$('.r.sel').forEach(x=>x.classList.remove('sel'));if(!on)r.classList.add('sel');
 };
 
-$('#msgs').addEventListener('click',e=>{const row=e.target.closest('.voice-msg');if(row&&!e.target.closest('[data-play-audio]')){row.classList.toggle('show-text');return}});
+// 普通聊天语音的点击事件在 bub() 创建每条语音气泡时单独绑定，避免被聊天列表的其他点击处理覆盖。
 $('#plus').onclick=()=>$('#pm').classList.toggle('on');
 $('#pm-voice').onclick=async()=>{ $('#pm').classList.remove('on');const text=await askText('发送模拟语音','输入你想说的话；会合成语音并作为语音消息发送');if(text===null||!text.trim())return;try{const audio=await makeVoice(text.trim());S.chats[cur].push({role:'user',content:text.trim(),audio,t:Date.now()});save();draw();toast('语音消息已发送')}catch(e){toast('语音生成失败：'+e.message)}};
 
@@ -1818,8 +1814,16 @@ function saveSoon(){clearTimeout(_st);_st=setTimeout(()=>{_st=0;save()},450)}
 function saveNow(){clearTimeout(_st);_st=0;save()}
 addEventListener('pagehide',()=>{if(_st)saveNow()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&_st)saveNow()});
-document.addEventListener('click',e=>{const b=e.target.closest('[data-bio-toggle]');if(!b)return;const w=b.closest('.up-bio-wrap'),o=w.classList.toggle('open');b.textContent=o?'收起':'展开'});
-function fitBio(root){root.querySelectorAll('.up-bio-wrap').forEach(w=>{const p=w.querySelector('.up-bio'),b=w.querySelector('.up-more');if(p&&b)b.style.display=(w.classList.contains('open')||p.scrollHeight>p.clientHeight+2)?'':'none'})}
+document.addEventListener('click',e=>{
+ const target=e.target && e.target.closest ? e.target.closest('.up-bio-wrap') : null;
+ if(!target)return;
+ // 点击「展开/收起」按钮或简介文字区域，都切换展开状态；避免编辑按钮受到影响。
+ if(e.target.closest('#edit-user-profile, #user-edit-box, .up-chips, [data-up-switch], #add-user-profile'))return;
+ const b=target.querySelector('[data-bio-toggle]');
+ const o=target.classList.toggle('open');
+ if(b)b.textContent=o?'收起':'展开';
+});
+function fitBio(root){root.querySelectorAll('.up-bio-wrap').forEach(w=>{const p=w.querySelector('.up-bio'),b=w.querySelector('.up-more');if(p&&b){b.style.display='';b.textContent=w.classList.contains('open')?'收起':'展开'}})}
 function bindUserProfile(root,refresh){
  const q=s=>root.querySelector(s),act=()=>S.userProfiles.find(x=>x.id===S.activeUserProfile)||S.userProfiles[0];
  fitBio(root);const box=q('#user-edit-box');if(!box)return;
