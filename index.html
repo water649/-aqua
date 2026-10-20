@@ -12,7 +12,7 @@
 <style>
 :root{color-scheme:light;--bg:#fff;--p:#f3f4f5;--ink:#0f1419;--sub:#6b7480;--line:#eaecee;--ai:#eceef0;--me:#111;--me-ink:#fff;--fld:#fff;--av:#e3e5e8;--t2:#333;--err:#d93636;--shade:rgba(0,0,0,.35);
 --sans:-apple-system,"PingFang SC","Noto Sans SC","Hiragino Sans","Microsoft YaHei",sans-serif}
-[data-theme=dark]{color-scheme:dark;--bg:#000;--p:#303030;--ink:#f2f2f2;--sub:#71767b;--line:#2f3336;--ai:#303030;--me:#fff;--me-ink:#000;--fld:#000;--av:#2a2a2a;--t2:#ddd;--err:#ff7b7b;--shade:rgba(0,0,0,.6)}
+[data-theme=dark]{color/-scheme:dark;--bg:#000;--p:#303030;--ink:#f2f2f2;--sub:#71767b;--line:#2f3336;--ai:#303030;--me:#fff;--me-ink:#000;--fld:#000;--av:#2a2a2a;--t2:#ddd;--err:#ff7b7b;--shade:rgba(0,0,0,.6)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);overflow:hidden}
@@ -833,6 +833,27 @@ button.feed-follow-plus{padding:0;cursor:pointer}
 <div id="toast"></div>
 
 <script>
+(async function(){
+// Larger, more reliable local storage for the app state. IndexedDB avoids localStorage's small per-origin limit.
+const XSJ_DB_NAME = 'xiaoshouji-storage-v1';
+const XSJ_DB_STORE = 'app-data';
+function xsjOpenDB(){
+  return new Promise((resolve,reject)=>{
+    if(!('indexedDB' in window)){reject(new Error('此浏览器不支持 IndexedDB'));return;}
+    const req=indexedDB.open(XSJ_DB_NAME,1);
+    req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(XSJ_DB_STORE))db.createObjectStore(XSJ_DB_STORE,{keyPath:'key'});};
+    req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('打开本地数据库失败'));
+  });
+}
+async function xsjReadDB(){
+  const db=await xsjOpenDB();
+  return new Promise((resolve,reject)=>{const tx=db.transaction(XSJ_DB_STORE,'readonly');const req=tx.objectStore(XSJ_DB_STORE).get('xsj');req.onsuccess=()=>{db.close();resolve(req.result?req.result.value:null)};req.onerror=()=>{db.close();reject(req.error||new Error('读取本地数据库失败'))};});
+}
+async function xsjWriteDB(value){
+  const db=await xsjOpenDB();
+  return new Promise((resolve,reject)=>{const tx=db.transaction(XSJ_DB_STORE,'readwrite');tx.objectStore(XSJ_DB_STORE).put({key:'xsj',value});tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{const err=tx.error||new Error('写入本地数据库失败');db.close();reject(err)};tx.onabort=()=>{const err=tx.error||new Error('本地数据库写入被中止');db.close();reject(err)};});
+}
+let xsjSaveQueue=Promise.resolve();
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,8),rnd=n=>Math.floor(Math.random()*n);
@@ -859,7 +880,19 @@ const DEF=()=>({cfg:{base:'https://api.openai.com/v1',key:'',model:'gpt-4o-mini'
   personas:[{id:'p1',name:'默认',handle:'',bio:'',prompt:'你是一个温柔、简洁的聊天伙伴，用自然的口语回复。',greet:'',avatar:''}],
   worlds:[],apiPresets:[],chats:{},posts:[],memo:'',memoImage:'',memoImageTitle:'备忘录图片',desktop:{wallpaper:'',icons:{},widgets:[],order:{}},last:'',theme:'light',stickers:[],cc:{},themes:[],globalPrompt:'',userProfiles:[],activeUserProfile:'',diaries:[],postDecorations:[],
   deco:{name:'小手机',handle:'xiaoshouji',avatar:'',text:'点这里修改文案，换成你喜欢的一句话。',meta:'20:31 · 2026/10/10 · 4.6万 次查看',rp:'128',rt:'642',likes:'2460',bm:'583',badge:true}});
-let S;try{S=JSON.parse(localStorage.getItem('xsj')||'null')}catch(e){}
+let S;
+try{
+  const dbValue=await xsjReadDB();
+  if(dbValue){S=JSON.parse(dbValue)}
+  else {
+    try{S=JSON.parse(localStorage.getItem('xsj')||'null')}catch(e){S=null}
+    // Migrate the existing localStorage data into IndexedDB without deleting the original copy.
+    if(S){try{await xsjWriteDB(JSON.stringify(S))}catch(migrationError){console.warn('小手机数据迁移暂未完成：',migrationError)}}
+  }
+}catch(storageLoadError){
+  console.warn('IndexedDB 读取失败，尝试读取旧版本地数据：',storageLoadError);
+  try{S=JSON.parse(localStorage.getItem('xsj')||'null')}catch(e){S=null}
+}
 S=Object.assign(DEF(),S||{});S.stickerGroups=S.stickerGroups||['默认'];S.stickers=(S.stickers||[]).map(x=>({...x,group:x.group||'默认'}));S.apiPresets=S.apiPresets||[];S.secondaryPresets=S.secondaryPresets||[];S.userProfiles=S.userProfiles||[];S.diaries=S.diaries||[];S.postDecorations=S.postDecorations||[];if(!S.userProfiles.length){S.userProfiles=[Object.assign({id:'u1'},S.me)];S.activeUserProfile='u1'};S.activeUserProfile=S.activeUserProfile||S.userProfiles[0].id;S.me=Object.assign({},S.userProfiles.find(x=>x.id===S.activeUserProfile)||S.me);
 const MEMK=['traditionalMemory','memoryEntries','vectorMemories','lastAutoSummaryCount'];
 S.chatsByUser=S.chatsByUser||{};S.memByUser=S.memByUser||{};S.cc=S.cc||{};
@@ -868,7 +901,17 @@ S.chatsByUser=S.chatsByUser||{};S.memByUser=S.memByUser||{};S.cc=S.cc||{};
   if(S.activeUserProfile!==first){const pack={};Object.keys(S.cc).forEach(pid=>{const m={};MEMK.forEach(k=>{if(S.cc[pid][k]!==undefined){m[k]=S.cc[pid][k];delete S.cc[pid][k]}});pack[pid]=m});S.memByUser[first]=pack}}
  (S.posts||[]).forEach(o=>{if(o.pid==='me'&&!o.uid)o.uid=first});
  S.chats=S.chatsByUser[S.activeUserProfile]||(S.chatsByUser[S.activeUserProfile]={})}S.cfg=Object.assign(DEF().cfg,S.cfg);S.me=Object.assign(DEF().me,S.me);S.deco=Object.assign(DEF().deco,S.deco);S.desktop=Object.assign({wallpaper:'',icons:{},widgets:[],order:{}},S.desktop||{});S.desktop.icons=S.desktop.icons||{};S.desktop.widgets=S.desktop.widgets||[];S.desktop.order=S.desktop.order||{};
-const save=()=>{try{localStorage.setItem('xsj',JSON.stringify(S,function(k,v){return k==='chats'&&this===S?undefined:v}))}catch(e){alert('存储空间已满，请导出备份并清理')}};
+const save=()=>{
+  let snapshot;
+  try{snapshot=JSON.stringify(S,function(k,v){return k==='chats'&&this===S?undefined:v})}
+  catch(e){console.error('小手机数据序列化失败：',e);if(typeof toast==='function')toast('保存失败：数据无法序列化');return}
+  // Queue writes in order so quick edits cannot overwrite a newer save with an older snapshot.
+  xsjSaveQueue=xsjSaveQueue.then(()=>xsjWriteDB(snapshot)).catch(e=>{
+    console.error('小手机本地保存失败：',e);
+    const msg=(e&&e.name==='QuotaExceededError')?'设备可用存储空间不足，请先导出备份并清理大图片/贴纸。':'本地保存失败：'+((e&&e.message)||'未知错误');
+    if(typeof toast==='function')toast(msg);else console.warn(msg);
+  });
+};
 const P=id=>S.personas.find(x=>x.id===id);
 const postsOf=id=>S.posts.filter(o=>o.pid===id&&(id!=='me'||o.uid===S.activeUserProfile));
 function switchUser(id){
@@ -1833,6 +1876,7 @@ function bindUserProfile(root,refresh){
    const n=act();S.me={name:n.name||'',handle:n.handle||'',bio:n.bio||'',avatar:n.avatar||''};saveNow();refresh();toast('已删除')}}
  if(upOpen){upOpen=0;box.style.display='block';fill()}
 }
+})();
 </script>
 </body>
 </html>
