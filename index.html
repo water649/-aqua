@@ -626,6 +626,102 @@ button.mu-av{border:0;cursor:pointer}
 .up-actions{display:flex;gap:8px;margin-top:12px}
 .up-actions .btn{margin:0;flex:1}
 button.feed-follow-plus{padding:0;cursor:pointer}
+/* music app */
+.ms{--bg:#fff;--c:#f1f1f3;--t:#000;--s:#8e8e93;--r:#fa2d48;--l:rgba(128,128,128,.22);--mb:max(4px,calc(env(safe-area-inset-bottom,0px) - 8px));position:fixed;inset:0;max-width:640px;margin:0 auto;z-index:5;background:var(--bg);color:var(--t);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+[data-theme=dark] .ms{--bg:#000;--c:#1c1c1e;--t:#fff}
+.ms-top{display:flex;align-items:center;gap:10px;padding:10px 20px 2px;flex:none}
+.ms-top h1{flex:1;font-size:34px;font-weight:800;cursor:pointer}
+.ms-top h1.sub{cursor:default;font-size:28px}
+.ms-c{width:40px;height:40px;border-radius:50%;background:var(--c);display:grid;place-items:center;color:var(--t);flex:none}
+.ms-c svg{width:22px;height:22px}
+.ms-avs{display:flex;flex:none}
+.ms-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(160deg,#a9b8dd,#6f78b3);color:#fff;display:grid;place-items:center;font-size:19px;font-weight:600;overflow:hidden;font-style:normal;border:2px solid var(--bg)}
+.ms-av img{width:100%;height:100%;object-fit:cover}
+.ms-avs .ms-av+.ms-av{margin-left:-14px}
+.ms-pill{display:flex;background:var(--bg);border-radius:24px;box-shadow:0 1px 10px rgba(0,0,0,.14);flex:none}
+.ms-pill button{width:50px;height:44px;display:grid;place-items:center;color:var(--t)}
+.ms-pill svg{width:24px;height:24px}
+.ms-sc{flex:1;overflow-y:auto;padding-bottom:190px}
+.ms-h{font-size:22px;font-weight:700;margin:22px 20px 12px;display:flex;align-items:center;gap:4px}
+.ms-h svg{width:20px;height:20px;color:var(--s)}
+.ms-row{display:flex;gap:12px;overflow-x:auto;padding:0 20px;scrollbar-width:none}
+.ms-row::-webkit-scrollbar{display:none}
+.ms-card{flex:none;width:226px;height:300px;border-radius:24px;color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
+.ms-card i{font-style:normal;align-self:flex-end;font-weight:600;font-size:15px}
+.ms-card h3{font-size:32px;font-weight:800;text-align:center;line-height:1.2}
+.ms-card small{display:block;font-size:12px;opacity:.85;margin-bottom:3px}
+.ms-card p{font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ms-al{flex:none;width:147px;cursor:pointer}
+.ms-art{position:relative;overflow:hidden;display:grid;place-items:center;color:rgba(255,255,255,.75);width:147px;height:147px;border-radius:14px;flex:none}
+.ms-art svg{width:40px;height:40px;opacity:.75}
+.ms-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ms-art.r{width:56px;height:56px;border-radius:8px}
+.ms-art.r svg{width:22px;height:22px}
+.ms-art.s{width:30px;height:30px;border-radius:6px}
+.ms-art.s svg{width:16px;height:16px}
+.ms-art.xl{width:100%;height:auto;aspect-ratio:1;border-radius:14px}
+.ms-art.xl svg{width:30%;height:30%}
+.ms-al b{display:block;font-size:17px;font-weight:500;margin-top:9px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-al small{display:block;color:var(--s);font-size:15px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-e{color:var(--s);text-align:center;padding:60px 20px;font-size:14px;line-height:1.9}
+.ms-note{color:var(--s);font-size:12px;text-align:center;padding:14px 20px}
+.ms-search{display:flex;align-items:center;gap:8px;background:var(--c);border-radius:22px;height:44px;margin:12px 20px 4px;padding:0 14px;color:var(--s)}
+.ms-search svg{width:20px;height:20px;flex:none}
+.ms-search input{flex:1;min-width:0;background:none;border:0;padding:0;outline:none;font-size:17px;color:var(--t)}
+.ms-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px}
+.ms-chips button{background:var(--c);border-radius:16px;padding:8px 14px;font-size:14px;color:var(--t)}
+.ms-ls{padding:0 20px}
+.ms-r{display:flex;align-items:center;gap:14px;padding:8px 0;cursor:pointer}
+.ms-r .mi{flex:1;min-width:0;border-bottom:1px solid var(--l);padding:9px 0}
+.ms-r .mi b{display:block;font-size:17px;font-weight:400;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-r .mi small{display:block;color:var(--s);font-size:15px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-dots{width:34px;height:34px;display:grid;place-items:center;color:var(--t);flex:none}
+.ms-dots svg{width:22px;height:22px}
+.ms-ch{color:var(--s);display:grid;place-items:center}
+.ms-ch svg{width:18px;height:18px}
+.ms-lr{display:flex;align-items:center;gap:14px;cursor:pointer}
+.ms-lr>i{color:var(--r);width:34px;display:grid;place-items:center}
+.ms-lr>i svg{width:28px;height:28px}
+.ms-lr .lb{flex:1;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--l);padding:17px 0}
+.ms-lr .lb b{font-weight:400;font-size:20px}
+.ms-mini{position:absolute;left:12px;right:12px;bottom:calc(var(--mb) + 74px);display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:30px;padding:5px 12px 5px 14px;box-shadow:0 2px 16px rgba(0,0,0,.16);cursor:pointer}
+.ms-mini .mi{flex:1;min-width:0}
+.ms-mini .mi b{display:block;font-size:15px;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-mini .mi small{color:var(--s);font-size:13px}
+.ms-mini button{display:grid;place-items:center;width:36px;height:36px;color:var(--t)}
+.ms-mini button svg{width:24px;height:24px}
+.ms-tabs{position:absolute;left:12px;right:12px;bottom:var(--mb);display:flex;gap:8px;align-items:center}
+.ms-nav{flex:1;display:flex;background:var(--bg);border-radius:30px;padding:4px;box-shadow:0 2px 16px rgba(0,0,0,.16)}
+.ms-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 0 4px;border-radius:26px;font-size:11px;font-weight:600;color:var(--t)}
+.ms-nav button.on{background:var(--c);color:var(--r)}
+.ms-nav svg{width:24px;height:24px}
+.ms-se{width:68px;height:68px;border-radius:50%;background:var(--bg);box-shadow:0 2px 16px rgba(0,0,0,.16);display:grid;place-items:center;flex:none;color:var(--t)}
+.ms-se svg{width:34px;height:34px}
+.ms-np{position:absolute;inset:0;z-index:6;isolation:isolate;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 8px) 22px calc(env(safe-area-inset-bottom,0px) + 18px);overflow-y:auto;color:var(--t)}
+.ms-np:before{content:"";position:absolute;inset:0;background:var(--g);opacity:.22;z-index:-1}
+.ms-nptop{display:flex;justify-content:space-between;align-items:center;flex:none}
+.ms-bigart{margin:18px auto 0;width:min(78vw,340px);flex:none;filter:drop-shadow(0 12px 28px rgba(0,0,0,.25))}
+.ms-npinfo{display:flex;align-items:center;gap:12px;margin-top:22px}
+.ms-npinfo>div{flex:1;min-width:0}
+.ms-npinfo b{display:block;font-size:22px;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-npinfo small{display:block;color:var(--s);font-size:17px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ms-seek{margin-top:18px}
+.ms-seek input[type=range]{width:100%;accent-color:var(--t);height:24px;padding:0;background:none;border:0;border-radius:0}
+.ms-seek div{display:flex;justify-content:space-between;font-size:12px;color:var(--s)}
+.ms-ctl{display:flex;justify-content:center;align-items:center;gap:36px;margin:14px 0}
+.ms-ctl button{width:56px;height:56px;display:grid;place-items:center;color:var(--t)}
+.ms-ctl button svg{width:34px;height:34px}
+.ms-ctl .big svg{width:52px;height:52px}
+.ms-tg{margin:6px auto 0;display:flex;align-items:center;gap:8px;background:var(--c);border-radius:22px;padding:11px 18px;font-size:15px;color:var(--t)}
+.ms-tg svg{width:22px;height:22px;flex:none}
+#mssheet{position:fixed;inset:0;background:var(--shade);display:none;align-items:flex-end;justify-content:center;z-index:80}
+#mssheet.on{display:flex}
+#mssheet>div{width:100%;max-width:640px;background:var(--bg);border-radius:18px 18px 0 0;padding:8px 14px calc(14px + env(safe-area-inset-bottom,0px));max-height:70vh;overflow-y:auto}
+#mssheet button{display:flex;align-items:center;gap:12px;width:100%;padding:14px 4px;font-size:17px;border-bottom:1px solid var(--line);color:var(--ink);text-align:left}
+#mssheet button:last-child{border:0}
+#mssheet .rd{color:var(--err)}
+.ms-pa{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#bbb;display:grid;place-items:center;flex:none;color:#fff}
+.ms-pa img{width:100%;height:100%;object-fit:cover}
 </style>
 <style id="ucss"></style>
 </head>
@@ -638,7 +734,7 @@ button.feed-follow-plus{padding:0;cursor:pointer}
     <div id="memo-image-card" class="w"><input id="memo-image-title" type="text" maxlength="60" placeholder="自定义标题" aria-label="自定义图片标题"><input id="memo-image-file" type="file" accept="image/*" hidden><div id="memo-image-box" role="button" tabindex="0" aria-label="点击选择图片"></div></div>
     <div class="w recent-glass"><div class="wl">最近的对话</div><div id="rc"></div></div>
   </div>
-  <div id="home-page2" style="display:none;flex:1;width:100%;max-width:560px;padding:20px 0;overflow:auto"><div class="clock"><b style="font-size:30px;font-weight:500;letter-spacing:.02em">人と人の漣</b></div><div class="home-app-grid" id="desktop-widgets"><button class="app home-app" data-go="diary"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l3 3V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 5 20V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M14.5 3.8V7H18M8 11h7M8 14.5h7M8 18h4"/></svg></i><span>日记</span></button><button class="app home-app" data-go="rolephones"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M9 5.5h6M10 18.5h4"/><circle cx="12" cy="11" r="3.2"/><path d="m10.8 11 1 1 1.8-2"/></svg></i><span>iPhone</span></button><button class="app home-app" data-go="desktopcustom"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 9v12"/><circle cx="6" cy="6" r=".6" fill="currentColor"/></svg></i><span>桌面美化</span></button></div></div>
+  <div id="home-page2" style="display:none;flex:1;width:100%;max-width:560px;padding:20px 0;overflow:auto"><div class="clock"><b style="font-size:30px;font-weight:500;letter-spacing:.02em">人と人の漣</b></div><div class="home-app-grid" id="desktop-widgets"><button class="app home-app" data-go="diary"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l3 3V20a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 5 20V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M14.5 3.8V7H18M8 11h7M8 14.5h7M8 18h4"/></svg></i><span>日记</span></button><button class="app home-app" data-go="rolephones"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M9 5.5h6M10 18.5h4"/><circle cx="12" cy="11" r="3.2"/><path d="m10.8 11 1 1 1.8-2"/></svg></i><span>iPhone</span></button><button class="app home-app" data-go="desktopcustom"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 9v12"/><circle cx="6" cy="6" r=".6" fill="currentColor"/></svg></i><span>桌面美化</span></button><button class="app home-app" data-go="music"><i class="diary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17V6l10-2v11"/><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="15" r="2.5"/></svg></i><span>音乐</span></button></div></div>
   <div id="home-dots" style="display:flex;justify-content:center;gap:8px;padding:0 0 4px"><span>●</span><span style="opacity:.3">●</span></div>
   <div class="dock">
     <button class="app" data-go="app"><i data-ic="ch"></i>聊天</button>
@@ -647,6 +743,8 @@ button.feed-follow-plus{padding:0;cursor:pointer}
     <button class="app" data-go="settings"><i data-ic="st"></i>设置</button>
   </div>
 </section>
+
+<section class="view" id="v-music"><div class="ms" id="ms-root"></div></section>
 
 <section class="view" id="v-app">
   <div class="bar"><button class="bk" data-back>‹</button><h2 id="atitle"></h2><span id="aact"></span></div>
@@ -935,7 +1033,7 @@ function build(p,h){
   const recent=h.slice(-6).map(m=>m.content).join('\n');
   const cc=CC(p.id),wb=S.worlds.filter(w=>w.on!==false&&w.content&&((w.scope||'global')==='global'||(w.scope==='contact'&&(w.contacts||[]).includes(p.id)))&&(!w.keys.trim()||(w.trigger==='keyword'&&w.keys.split(/[,，\s]+/).filter(Boolean).some(k=>recent.includes(k))))).map(w=>({content:w.content,position:w.position||'after'}));
   let sys=p.prompt||'';if((S.cfg.memoryMode||'traditional')==='traditional'&&cc.traditionalMemory)sys+='\n\n【传统记忆】\n'+cc.traditionalMemory;const generatedMem=(cc.memoryEntries||[]).filter(m=>m&&String(m.text||'').trim());if(generatedMem.length)sys+='\n\n【自动总结记忆条目】\n'+generatedMem.map((m,i)=>`${i+1}. ${m.text}`).join('\n');if(S.globalPrompt)sys+='\n\n【全局 AI 扮演提示词】\n'+S.globalPrompt;if(cc.sys)sys+='\n\n'+cc.sys;
-  if(S.me.bio)sys+='\n\n【用户设定】'+S.me.name+'：'+S.me.bio;
+  if(S.me.bio)sys+='\n\n【用户设定】'+S.me.name+'：'+S.me.bio;if(S.music&&S.music.together&&S.music.together.pid===p.id&&S.music.together.title)sys+='\n\n【一起听歌】用户正在和你一起听《'+S.music.together.title+'》（'+(S.music.together.artist||'未知艺人')+'）。你知道这件事，可以自然地聊到这首歌，但不要生硬复述歌名。';
   const wbBefore=wb.filter(w=>w.position==='before').map(w=>w.content),wbAfter=wb.filter(w=>w.position!=='before').map(w=>w.content);if(wbBefore.length)sys='【世界书】\n'+wbBefore.join('\n\n')+'\n\n'+sys;if(wbAfter.length)sys+='\n\n【世界书】\n'+wbAfter.join('\n\n');
   const o=[];h.slice(-(+S.cfg.hist||30)).forEach(m=>{const l=o[o.length-1];if(l&&l.role===m.role)l.content+='\n'+m.content;else o.push({role:m.role,content:m.image?[{type:'text',text:m.content||'用户发送了一张图片，请结合图片内容回复。'},{type:'image_url',image_url:{url:m.image}}]:m.content})});
   return[{role:'system',content:sys},...o];
@@ -1213,7 +1311,7 @@ function setupDesktopGestures(){const home=$('#v-home');home.addEventListener('p
 
 /* nav */
 let stack=['home'],cur=null,T=0,PID='me';
-const R={home:rHome,app:rApp,prof:rProf,chat:draw,deco:rDeco,cset:rCset,css:rCss,personas:rPersonas,worlds:rWorlds,settings:rSettings,roleprompt:rSettings,diary:rDiary,stickers:rProfileStickers,postdetail:rPostDetail,rolephones:rolePhoneRender,desktopcustom:renderDesktopCustomizer};
+const R={music:()=>msRender(),home:rHome,app:rApp,prof:rProf,chat:draw,deco:rDeco,cset:rCset,css:rCss,personas:rPersonas,worlds:rWorlds,settings:rSettings,roleprompt:rSettings,diary:rDiary,stickers:rProfileStickers,postdetail:rPostDetail,rolephones:rolePhoneRender,desktopcustom:renderDesktopCustomizer};
 function go(v,push=true){if(v==='chat'&&!P(cur))return;if(v==='settings'&&stack[stack.length-1]!=='settings')settingsPage='main';if(v!=='chat')$('#ucss').textContent='';
   $$('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v));if(push)stack.push(v);R[v]()}
 function back(){if(stack[stack.length-1]==='cset'&&csetPage==='memory'){csetPage='main';rCset();return}if(stack[stack.length-1]==='settings'&&settingsPage!=='main'){settingsPage='main';rSettings();return}stack.pop();go(stack[stack.length-1]||'home',false)}
@@ -1741,7 +1839,7 @@ $('#smile').innerHTML=ic('sm');$('#send').innerHTML=ic('up');
 applyTheme();sIcon();rHome();
 /* v60: iOS fullscreen, keep-alive, banners */
 function syncChrome(){
- const v=document.querySelector('.view.on'),el=(v&&v.querySelector('.wx,.nt,.ph,.mu,.zy'))||v||document.body;
+ const v=document.querySelector('.view.on'),el=(v&&v.querySelector('.wx,.nt,.ph,.mu,.zy,.ms'))||v||document.body;
  let c=getComputedStyle(el).backgroundColor;if(!c||c==='transparent'||/,\s*0\)$/.test(c))c=getComputedStyle(document.body).backgroundColor;
  const m=document.getElementById('theme-color');if(m&&m.content!==c)m.content=c;
  document.documentElement.style.backgroundColor=c;
@@ -1852,6 +1950,181 @@ function bindUserProfile(root,refresh){
  if(upOpen){upOpen=0;box.style.display='block';fill()}
 }
 
+/* ===== Music app (Apple Music style) ===== */
+Object.assign(RPI,{
+ pz:'<rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/>',
+ pv:'<path d="M19 6v12l-8-6zM11 6v12l-8-6z"/>',dn:'<path d="M6 9l6 6 6-6"/>',
+ lpa:'<path d="M4 6h8M4 11h8M4 16h6"/><path d="M17 4v8M13 8h8"/>',
+ tg:'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.4-3.3 2.6-5.2 5.5-5.2s5.1 1.9 5.5 5.2"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2c3 0 4.6 1.5 5 4.3"/>',
+ pl2:'<path d="M3 6h9M3 11h9M3 16h5"/><path d="M16 17V6.5l5-1.2V15"/><circle cx="14.2" cy="17.2" r="2" fill="currentColor"/>',
+ al:'<rect x="5" y="8" width="14" height="12" rx="2.5"/><path d="M7.5 5h9M9.5 2.5h5"/>',
+ dl:'<circle cx="12" cy="12" r="9.5"/><path d="M12 7v8M8.5 12l3.5 3.5 3.5-3.5"/>'});
+const MSA=new Audio();MSA.preload='auto';MSA.setAttribute('playsinline','');
+const MS={tab:0,q:'',results:[],err:'',loading:0,sub:null,subList:[],detail:false,queue:[],qi:-1,cur:null,playing:false,sid:0,seeking:false,obj:null,dt:0,reset:0};
+const MS_HOT=['周杰伦','Taylor Swift','陈奕迅','Ariana Grande','林俊杰','Billie Eilish','五月天','The Weeknd'];
+const MSG=['linear-gradient(160deg,#4a14e8,#9b3bf0 60%,#d878b0)','linear-gradient(160deg,#f3b53f,#f0c25a)','linear-gradient(160deg,#ff5f6d,#ffc371)','linear-gradient(160deg,#11998e,#38ef7d)','linear-gradient(160deg,#2b5876,#4e4376)','linear-gradient(160deg,#ee0979,#ff6a00)'];
+const msM=()=>{if(!S.music)S.music={lib:[],recent:[],together:null};return S.music};
+const msUser=()=>(S.userProfiles||[]).find(x=>x.id===S.activeUserProfile)||S.me;
+const msHash=s=>[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0);
+const msFmt=s=>{s=Math.floor(s||0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const msArt=(t,c='')=>`<div class="ms-art ${c}" style="background:${MSG[msHash(t.title||t.id||'')%MSG.length]}">${rpSvg('nn')}${t.art?`<img src="${esc(t.art)}" alt="" loading="lazy" onerror="this.remove()">`:''}</div>`;
+const msList=k=>k==='r'?msM().recent:k==='s'?MS.results:k==='l'?msM().lib:MS.subList;
+/* file storage for imported audio */
+const msDB=()=>new Promise((res,rej)=>{const r=indexedDB.open('xsj-music',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+async function msPut(k,b){const d=await msDB();return new Promise((res,rej)=>{const t=d.transaction('f','readwrite');t.objectStore('f').put(b,k);t.oncomplete=res;t.onerror=()=>rej(t.error)})}
+async function msGet(k){const d=await msDB();return new Promise((res,rej)=>{const r=d.transaction('f').objectStore('f').get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function msDel(k){const d=await msDB();return new Promise((res,rej)=>{const t=d.transaction('f','readwrite');t.objectStore('f').delete(k);t.oncomplete=res;t.onerror=()=>rej(t.error)})}
+function msSheet(items){
+ let sh=$('#mssheet');if(!sh){sh=document.createElement('div');sh.id='mssheet';document.body.appendChild(sh);sh.onclick=e=>{if(e.target===sh)sh.classList.remove('on')}}
+ sh.innerHTML='<div>'+items.map((it,i)=>`<button data-i="${i}"${it.danger?' class="rd"':''}>${it.html||esc(it.label)}</button>`).join('')+'</div>';sh.classList.add('on');
+ sh.querySelectorAll('button').forEach(b=>b.onclick=()=>{sh.classList.remove('on');const it=items[+b.dataset.i];if(it&&it.run)it.run()});
+}
+function msAvs(){const tg=msM().together,p=tg&&P(tg.pid);
+ return p?`<span class="ms-avs"><i class="ms-av">${av(p)}</i><i class="ms-av">${av(msUser())}</i></span>`:`<span class="ms-avs"><i class="ms-av">${av(msUser())}</i></span>`}
+const msRow=(t,k,i)=>`<div class="ms-r" data-ms-play="${k}:${i}">${msArt(t,'r')}<div class="mi"><b>${esc(t.title)}</b><small>${esc(t.artist)}</small></div><button class="ms-dots" data-ms-menu="${k}:${i}" aria-label="更多">${rpSvg('dots')}</button></div>`;
+function msHome(){
+ const m=msM(),rec=m.recent,tg=m.together,pt=tg&&P(tg.pid);
+ const names=[...new Set([...m.lib,...rec].map(x=>x.artist).filter(Boolean))].slice(0,8);
+ const c1=`<div class="ms-card" style="background:${MSG[0]}" data-ms-go="lib"><i>Music</i><h3>你的精选集</h3><div><small>专属推荐</small><p>${esc(names.join('、')||'在新发现里搜索歌曲，或在资料库导入音乐，这里会出现你的精选')}</p></div></div>`;
+ const c2=`<div class="ms-card" style="background:${MSG[1]}" data-ms-go="together"><i>Music</i><h3>${pt?'正在一起听':'和角色一起听'}</h3><div><small>专属体验</small><p>${pt?esc(pt.name+' 正在和你一起听'+(tg.title?'《'+tg.title+'》':'')):'播放一首歌，在歌曲详情里选择一位角色，TA 就会知道你正在听什么'}</p></div></div>`;
+ return `<div class="ms-h">专属精选推荐</div><div class="ms-row">${c1}${c2}</div><div class="ms-h">最近播放${rpSvg('chr')}</div>`+(rec.length?`<div class="ms-row">${rec.map((t,i)=>`<div class="ms-al" data-ms-play="r:${i}">${msArt(t)}<b>${esc(t.title)}</b><small>${esc(t.artist)}</small></div>`).join('')}</div>`:'<div class="ms-e">还没有播放记录</div>');
+}
+function msResultsHTML(){
+ if(MS.loading)return '<div class="ms-e">搜索中…</div>';
+ if(MS.err)return `<div class="ms-e">${esc(MS.err)}</div>`;
+ if(!MS.q)return `<div class="ms-h">热门搜索</div><div class="ms-chips">${MS_HOT.map(h=>`<button data-ms-hot="${esc(h)}">${esc(h)}</button>`).join('')}</div>`;
+ if(!MS.results.length)return '<div class="ms-e">没有找到相关歌曲</div>';
+ return `<div class="ms-h">歌曲${rpSvg('chr')}</div><div class="ms-ls">${MS.results.map((t,i)=>msRow(t,'s',i)).join('')}</div><p class="ms-note">在线歌曲为 30 秒试听片段</p>`;
+}
+const msDiscover=()=>`<div class="ms-search">${rpSvg('se')}<input id="ms-q" placeholder="搜索歌曲、艺人" value="${esc(MS.q)}" autocomplete="off"></div><div id="ms-results">${msResultsHTML()}</div>`;
+const msResultsDraw=()=>{const el=$('#ms-results');if(el)el.innerHTML=msResultsHTML()};
+async function msSearch(q){
+ q=q.trim();MS.q=q;const my=++MS.sid;
+ if(!q){MS.results=[];MS.err='';MS.loading=0;msResultsDraw();return}
+ MS.loading=1;MS.err='';msResultsDraw();
+ try{const r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=25&country=cn');if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json();if(my!==MS.sid)return;
+  MS.results=(j.results||[]).filter(x=>x.trackName).map(x=>({id:'it'+x.trackId,title:x.trackName,artist:x.artistName||'',album:x.collectionName||'',art:(x.artworkUrl100||'').replace('100x100','400x400'),url:x.previewUrl||'',src:'itunes'}))}
+ catch(e){if(my!==MS.sid)return;MS.err='搜索失败：'+e.message+'（需要能访问 itunes.apple.com）'}
+ MS.loading=0;msResultsDraw();
+}
+function msLibrary(){
+ const lib=msM().lib;
+ if(MS.sub){
+  const s=MS.sub;let items=lib;
+  if(s.type==='imported')items=lib.filter(t=>t.src!=='itunes');
+  if(s.type==='fav')items=lib.filter(t=>t.src==='itunes');
+  if((s.type==='artist'||s.type==='album')&&s.key==null){
+   const k=s.type==='artist'?'artist':'album',g={};lib.forEach(t=>{const n=t[k]||'未知';(g[n]=g[n]||[]).push(t)});
+   return `<div class="ms-ls">${Object.keys(g).map(n=>`<div class="ms-r" data-ms-grp="${esc(n)}"><div class="mi"><b>${esc(n)}</b><small>${g[n].length} 首歌曲</small></div><span class="ms-ch">${rpSvg('chr')}</span></div>`).join('')||'<div class="ms-e">资料库是空的</div>'}</div>`}
+  if(s.key!=null){const k=s.type==='artist'?'artist':'album';items=lib.filter(t=>(t[k]||'未知')===s.key)}
+  MS.subList=items;
+  return `<div class="ms-ls">${items.map((t,i)=>msRow(t,'g',i)).join('')||'<div class="ms-e">这里还没有歌曲<br>点右上角的加号导入文件或链接</div>'}</div>`;
+ }
+ const L=[['pl2','全部歌曲','songs'],['mic','艺人','artist'],['al','专辑','album'],['star','已收藏','fav'],['dl','已导入','imported']];
+ return `<div class="ms-ls" style="margin-top:14px">${L.map(r=>`<div class="ms-lr" data-ms-sub="${r[2]}" data-ttl="${r[1]}"><i>${rpSvg(r[0])}</i><div class="lb"><b>${r[1]}</b><span class="ms-ch">${rpSvg('chr')}</span></div></div>`).join('')}</div>`+(lib.length?'':'<p class="ms-note">资料库显示你导入的音乐和收藏的歌曲。点右上角的加号，可以从文件或链接导入。</p>');
+}
+function msMini(){const t=MS.cur;if(!t)return'';
+ return `<div class="ms-mini" data-ms-open>${msArt(t,'s')}<div class="mi"><b>${esc(t.title)}</b><small>${esc(t.artist)}</small></div><button data-ms-toggle aria-label="播放或暂停">${rpSvg(MS.playing?'pz':'pp',1)}</button><button data-ms-next aria-label="下一首">${rpSvg('sk',1)}</button></div>`}
+function msNP(){
+ const t=MS.cur;if(!t)return'';const tg=msM().together,pt=tg&&P(tg.pid),inl=msM().lib.some(x=>x.id===t.id);
+ return `<div class="ms-np" style="--g:${MSG[msHash(t.title||'')%MSG.length]}"><div class="ms-nptop"><button class="ms-c" data-ms-close aria-label="收起">${rpSvg('dn')}</button>${msAvs()}</div>
+ <div class="ms-bigart">${msArt(t,'xl')}</div>
+ <div class="ms-npinfo"><div><b>${esc(t.title)}</b><small>${esc(t.artist)}${t.album?' - '+esc(t.album):''}</small></div><button class="ms-c" data-ms-fav aria-label="收藏">${rpSvg('star',inl)}</button></div>
+ <div class="ms-seek"><input type="range" id="ms-seek" min="0" max="1000" value="0"><div><span id="ms-t1">0:00</span><span id="ms-t2">0:00</span></div></div>
+ <div class="ms-ctl"><button data-ms-prev aria-label="上一首">${rpSvg('pv',1)}</button><button class="big" data-ms-toggle aria-label="播放或暂停">${rpSvg(MS.playing?'pz':'pp',1)}</button><button data-ms-next aria-label="下一首">${rpSvg('sk',1)}</button></div>
+ <button class="ms-tg" data-ms-together>${rpSvg('tg')}<span>${pt?'正在和 '+esc(pt.name)+' 一起听（点此更换或结束）':'和角色一起听'}</span></button>
+ ${t.src==='itunes'?'<p class="ms-note">在线歌曲为 30 秒试听片段</p>':''}</div>`;
+}
+function msRender(){
+ const root=$('#ms-root'),v=$('#v-music');if(!root||!v||!v.classList.contains('on'))return;
+ const old=root.querySelector('.ms-sc'),y=(old&&!MS.reset)?old.scrollTop:0;MS.reset=0;
+ let top;
+ if(MS.tab===3&&MS.sub)top=`<div class="ms-top"><button class="ms-c" data-ms-subback aria-label="返回">${rpSvg('bk')}</button><h1 class="sub">${esc(MS.sub.title)}</h1>${msAvs()}</div>`;
+ else top=`<div class="ms-top"><h1 data-back>${['主页','新发现','广播','资料库'][MS.tab]}</h1>${MS.tab===3?`<div class="ms-pill"><button data-ms-act="import" aria-label="导入">${rpSvg('lpa')}</button><button data-ms-act="more" aria-label="更多">${rpSvg('dots')}</button></div>`:''}${msAvs()}</div>`;
+ const body=[msHome,msDiscover,()=>'<div class="ms-e">这里还没有电台</div>',msLibrary][MS.tab]();
+ const T=[['hm','首页'],['gd','新发现'],['rd','广播'],['lb','资料库']];
+ root.innerHTML=`${top}<div class="ms-sc">${body}</div>${msMini()}<div class="ms-tabs"><div class="ms-nav">${T.map((t,i)=>`<button data-ms-tab="${i}"${i===MS.tab?' class="on"':''}>${rpSvg(t[0],(t[0]==='hm'&&i===MS.tab)||t[0]==='gd')}${t[1]}</button>`).join('')}</div><button class="ms-se" data-ms-tab="1" data-ms-focus aria-label="搜索">${rpSvg('se')}</button></div>${MS.detail?msNP():''}`;
+ const sc=root.querySelector('.ms-sc');if(sc)sc.scrollTop=y;
+ msProgress();
+}
+function msProgress(){const d=MSA.duration||0,c=MSA.currentTime||0,s=$('#ms-seek'),a=$('#ms-t1'),b=$('#ms-t2');if(s&&!MS.seeking&&d)s.value=Math.round(c/d*1000);if(a)a.textContent=msFmt(c);if(b)b.textContent=msFmt(d)}
+function msMedia(t){try{if(!('mediaSession' in navigator))return;navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:t.artist,album:t.album||'',artwork:t.art?[{src:t.art,sizes:'400x400'}]:[]});navigator.mediaSession.setActionHandler('nexttrack',()=>msNext(1));navigator.mediaSession.setActionHandler('previoustrack',()=>msNext(-1))}catch(e){}}
+async function msPlay(list,i){
+ const t=list[i];if(!t)return;MS.queue=list.slice();MS.qi=i;MS.cur=t;let url=t.url;
+ try{if(t.src==='file'){const b=await msGet(t.fileKey);if(!b)throw new Error('文件已丢失，请重新导入');if(MS.obj)URL.revokeObjectURL(MS.obj);url=MS.obj=URL.createObjectURL(b)}}catch(e){toast(e.message);return}
+ if(!url)return toast('这首歌没有可播放的音源');
+ MSA.src=url;
+ try{await MSA.play()}catch(e){toast('无法播放：'+(e.message||'音源不可用'))}
+ const m=msM();m.recent=[t,...m.recent.filter(x=>x.id!==t.id)].slice(0,20);
+ if(m.together)Object.assign(m.together,{title:t.title,artist:t.artist});
+ save();msRender();msMedia(t);
+}
+function msNext(d){const n=MS.queue.length;if(!n)return;msPlay(MS.queue,(MS.qi+d+n)%n)}
+function msToggleLib(t){
+ if(!t)return;const m=msM(),ix=m.lib.findIndex(x=>x.id===t.id);
+ if(ix>=0){const o=m.lib[ix];if(o.src==='file')msDel(o.fileKey).catch(()=>{});m.lib.splice(ix,1);toast('已从资料库移除')}
+ else{if(t.src==='file')return toast('这首歌的文件已不在资料库里');m.lib.unshift(Object.assign({},t));toast('已添加到资料库')}
+ save();
+}
+function msEdit(t){
+ const nm=prompt('歌曲名称',t.title);if(nm===null)return;const ar=prompt('艺人',t.artist);if(ar===null)return;
+ const m=msM();[...m.lib,...m.recent].filter(x=>x.id===t.id).forEach(x=>{x.title=nm.trim()||x.title;x.artist=ar.trim()||x.artist});save();msRender();
+}
+function msTrackMenu(key){
+ const[k,i]=key.split(':'),t=msList(k)[+i];if(!t)return;const inl=msM().lib.some(x=>x.id===t.id),items=[{label:'播放',run:()=>msPlay(msList(k),+i)},{label:inl?'从资料库移除':'添加到资料库',run:()=>{msToggleLib(t);msRender()}}];
+ if(inl&&t.src!=='itunes')items.push({label:'编辑信息',run:()=>msEdit(t)});
+ items.push({label:'取消'});msSheet(items);
+}
+function msPickChar(){
+ if(!S.personas.some(p=>!p.blocked))return toast('还没有可选的角色，请先在「联系人设定」里创建');
+ const tg=msM().together,items=S.personas.filter(p=>!p.blocked).map(p=>({html:`<span class="ms-pa">${av(p)}</span>${esc(p.name)}${tg&&tg.pid===p.id?'（当前）':''}`,run:()=>{msM().together={pid:p.id,title:MS.cur?MS.cur.title:'',artist:MS.cur?MS.cur.artist:''};save();msRender();toast('已和 '+p.name+' 一起听')}}));
+ if(tg)items.push({label:'结束一起听',danger:1,run:()=>{msM().together=null;save();msRender()}});
+ items.push({label:'取消'});msSheet(items);
+}
+function msFilePick(){
+ const i=document.createElement('input');i.type='file';i.accept='audio/*,.mp3,.m4a,.wav,.flac,.aac,.ogg';i.multiple=true;
+ i.onchange=async()=>{let n=0;for(const f of [...i.files]){const id='f'+uid();try{await msPut(id,f);msM().lib.unshift({id,title:f.name.replace(/\.[^.]+$/,''),artist:'未知艺人',album:'',art:'',src:'file',fileKey:id});n++}catch(e){toast('导入失败：'+e.message)}}
+  if(n){save();toast('已导入 '+n+' 首歌曲');MS.tab=3;MS.sub=null;msRender()}};
+ i.click();
+}
+function msLinkImport(){
+ const u=(prompt('粘贴音频链接（http/https）')||'').trim();if(!u)return;if(!/^https?:\/\//i.test(u))return toast('请输入有效的音频链接');
+ let d='';try{d=decodeURIComponent((u.split('?')[0].split('/').pop()||'').replace(/\.[^.]+$/,''))}catch(e){}
+ const nm=prompt('歌曲名称',d||'未命名');if(nm===null)return;const ar=prompt('艺人（可留空）','');if(ar===null)return;
+ msM().lib.unshift({id:'u'+uid(),title:nm.trim()||'未命名',artist:ar.trim()||'未知艺人',album:'',art:'',src:'url',url:u});save();toast('已导入');MS.tab=3;MS.sub=null;msRender();
+}
+const msImport=()=>msSheet([{label:'从文件导入',run:msFilePick},{label:'从链接导入',run:msLinkImport},{label:'取消'}]);
+const msLibMore=()=>msSheet([{label:'从文件导入',run:msFilePick},{label:'从链接导入',run:msLinkImport},{label:'清空资料库',danger:1,run:()=>{if(!confirm('清空资料库？导入的文件也会一起删除。'))return;msM().lib.forEach(o=>{if(o.src==='file')msDel(o.fileKey).catch(()=>{})});msM().lib=[];save();MS.sub=null;msRender()}},{label:'取消'}]);
+MSA.addEventListener('play',()=>{MS.playing=true;msRender()});
+MSA.addEventListener('pause',()=>{MS.playing=false;msRender()});
+MSA.addEventListener('ended',()=>msNext(1));
+MSA.addEventListener('error',()=>{if(MSA.src)toast('这首歌的音源无法播放')});
+MSA.addEventListener('timeupdate',msProgress);
+document.addEventListener('input',e=>{
+ if(e.target.id==='ms-seek'){MS.seeking=true;const d=MSA.duration;if(d){const a=$('#ms-t1');if(a)a.textContent=msFmt(e.target.value/1000*d)}}
+ if(e.target.id==='ms-q'){clearTimeout(MS.dt);const v=e.target.value;MS.dt=setTimeout(()=>msSearch(v),450)}
+});
+document.addEventListener('change',e=>{if(e.target.id==='ms-seek'){const d=MSA.duration;if(d)MSA.currentTime=e.target.value/1000*d;MS.seeking=false}});
+document.addEventListener('keydown',e=>{if(e.target.id==='ms-q'&&e.key==='Enter'){e.preventDefault();clearTimeout(MS.dt);msSearch(e.target.value);e.target.blur()}});
+$('#v-music').addEventListener('click',e=>{
+ const q=s=>e.target.closest(s);let x;
+ if(q('[data-ms-toggle]')){e.stopPropagation();if(MSA.paused)MSA.play().catch(()=>{});else MSA.pause();return}
+ if(q('[data-ms-next]')){e.stopPropagation();msNext(1);return}
+ if(q('[data-ms-prev]')){msNext(-1);return}
+ if(q('[data-ms-close]')){MS.detail=false;msRender();return}
+ if(q('[data-ms-open]')){if(MS.cur){MS.detail=true;msRender()}return}
+ if(x=q('[data-ms-tab]')){MS.tab=+x.dataset.msTab;MS.sub=null;MS.reset=1;msRender();if(x.hasAttribute('data-ms-focus')){const i=$('#ms-q');if(i)i.focus()}return}
+ if(x=q('[data-ms-hot]')){MS.q=x.dataset.msHot;msRender();msSearch(MS.q);return}
+ if(x=q('[data-ms-menu]')){e.stopPropagation();msTrackMenu(x.dataset.msMenu);return}
+ if(x=q('[data-ms-play]')){const p=x.dataset.msPlay.split(':');msPlay(msList(p[0]),+p[1]);return}
+ if(x=q('[data-ms-sub]')){MS.sub={type:x.dataset.msSub,title:x.dataset.ttl,key:null};MS.reset=1;msRender();return}
+ if(x=q('[data-ms-grp]')){MS.sub.key=x.dataset.msGrp;MS.sub.title=x.dataset.msGrp;MS.reset=1;msRender();return}
+ if(q('[data-ms-subback]')){if(MS.sub&&MS.sub.key!=null){MS.sub.key=null;MS.sub.title=MS.sub.type==='artist'?'艺人':'专辑'}else MS.sub=null;MS.reset=1;msRender();return}
+ if(x=q('[data-ms-act]')){if(x.dataset.msAct==='import')msImport();else msLibMore();return}
+ if(q('[data-ms-fav]')){msToggleLib(MS.cur);msRender();return}
+ if(q('[data-ms-together]')){msPickChar();return}
+ if(x=q('[data-ms-go]')){if(x.dataset.msGo==='lib'){MS.tab=3;MS.sub=null}else if(MS.cur)MS.detail=true;else MS.tab=1;MS.reset=1;msRender();return}
+});
 })();
 </script>
 </body>
